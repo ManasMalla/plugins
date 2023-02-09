@@ -213,7 +213,7 @@ void main() {
     });
 
     test('setPlaybackSpeed', () async {
-      await player.setPlaybackSpeed(1, 1.5);
+      await player.setPlaybackSpeed(1, 1.5, 1);
       expect(log.log.last, 'setPlaybackSpeed');
       expect(log.playbackSpeedMessage?.textureId, 1);
       expect(log.playbackSpeedMessage?.speed, 1.5);

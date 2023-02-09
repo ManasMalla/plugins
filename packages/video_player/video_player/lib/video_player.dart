@@ -49,6 +49,7 @@ class VideoPlayerValue {
     this.isBuffering = false,
     this.volume = 1.0,
     this.playbackSpeed = 1.0,
+    this.pitch = 1.0,
     this.rotationCorrection = 0,
     this.errorDescription,
   });
@@ -105,6 +106,9 @@ class VideoPlayerValue {
   /// The current speed of the playback.
   final double playbackSpeed;
 
+  //The current pitch of the playback
+  final double pitch;
+
   /// A description of the error if present.
   ///
   /// If [hasError] is false this is `null`.
@@ -155,6 +159,7 @@ class VideoPlayerValue {
     bool? isBuffering,
     double? volume,
     double? playbackSpeed,
+    double? pitch,
     int? rotationCorrection,
     String? errorDescription = _defaultErrorDescription,
   }) {
@@ -171,6 +176,7 @@ class VideoPlayerValue {
       isBuffering: isBuffering ?? this.isBuffering,
       volume: volume ?? this.volume,
       playbackSpeed: playbackSpeed ?? this.playbackSpeed,
+      pitch: pitch ?? this.pitch,
       rotationCorrection: rotationCorrection ?? this.rotationCorrection,
       errorDescription: errorDescription != _defaultErrorDescription
           ? errorDescription
@@ -193,6 +199,7 @@ class VideoPlayerValue {
         'isBuffering: $isBuffering, '
         'volume: $volume, '
         'playbackSpeed: $playbackSpeed, '
+        'pitch: $pitch, '
         'errorDescription: $errorDescription)';
   }
 }
@@ -533,6 +540,7 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
     await _videoPlayerPlatform.setPlaybackSpeed(
       _textureId,
       value.playbackSpeed,
+      value.pitch,
     );
   }
 
@@ -588,7 +596,7 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
   ///   An error will be thrown for if the option is unsupported. It is also
   ///   possible that your specific video cannot be slowed down, in which case
   ///   the plugin also reports errors.
-  Future<void> setPlaybackSpeed(double speed) async {
+  Future<void> setPlaybackSpeed(double speed, {double pitch = 1.0}) async {
     if (speed < 0) {
       throw ArgumentError.value(
         speed,
@@ -601,7 +609,19 @@ class VideoPlayerController extends ValueNotifier<VideoPlayerValue> {
       );
     }
 
-    value = value.copyWith(playbackSpeed: speed);
+    if (pitch < 0) {
+      throw ArgumentError.value(
+        pitch,
+        'Negative playback pitches are generally unsupported.',
+      );
+    } else if (pitch == 0) {
+      throw ArgumentError.value(
+        pitch,
+        'Zero playback pitch is generally unsupported. Consider using [pause].',
+      );
+    }
+
+    value = value.copyWith(playbackSpeed: speed, pitch: pitch);
     await _applyPlaybackSpeed();
   }
 

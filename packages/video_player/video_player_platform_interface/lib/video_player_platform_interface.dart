@@ -84,7 +84,7 @@ abstract class VideoPlayerPlatform extends PlatformInterface {
   }
 
   /// Sets the playback speed to a [speed] value indicating the playback rate.
-  Future<void> setPlaybackSpeed(int textureId, double speed) {
+  Future<void> setPlaybackSpeed(int textureId, double speed, double pitch) {
     throw UnimplementedError('setPlaybackSpeed() has not been implemented.');
   }
 

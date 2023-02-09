@@ -309,10 +309,7 @@ class MiniController extends ValueNotifier<VideoPlayerValue> {
 
   Future<void> _applyPlaybackSpeed() async {
     if (value.isPlaying) {
-      await _platform.setPlaybackSpeed(
-        _textureId,
-        value.playbackSpeed,
-      );
+      await _platform.setPlaybackSpeed(_textureId, value.playbackSpeed, 1);
     }
   }
 

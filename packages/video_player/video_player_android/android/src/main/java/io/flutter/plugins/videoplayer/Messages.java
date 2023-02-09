@@ -240,16 +240,25 @@ public class Messages {
     }
 
     private @NonNull Double speed;
+    private @NonNull Double pitch;
 
     public @NonNull Double getSpeed() {
       return speed;
     }
+    public @NonNull Double getPitch(){return pitch;}
 
     public void setSpeed(@NonNull Double setterArg) {
       if (setterArg == null) {
         throw new IllegalStateException("Nonnull field \"speed\" is null.");
       }
       this.speed = setterArg;
+    }
+
+    public void setPitch(@NonNull Double setterArg) {
+      if (setterArg == null) {
+        throw new IllegalStateException("Nonnull field \"pitch\" is null.");
+      }
+      this.pitch = setterArg;
     }
 
     /** Constructor is private to enforce null safety; use Builder. */
@@ -264,9 +273,15 @@ public class Messages {
       }
 
       private @Nullable Double speed;
+      private @Nullable Double pitch;
 
       public @NonNull Builder setSpeed(@NonNull Double setterArg) {
         this.speed = setterArg;
+        return this;
+      }
+
+      public @NonNull Builder setPitch(@NonNull Double setterArg) {
+        this.pitch = setterArg;
         return this;
       }
 
@@ -274,6 +289,7 @@ public class Messages {
         PlaybackSpeedMessage pigeonReturn = new PlaybackSpeedMessage();
         pigeonReturn.setTextureId(textureId);
         pigeonReturn.setSpeed(speed);
+        pigeonReturn.setPitch(pitch);
         return pigeonReturn;
       }
     }
@@ -283,6 +299,7 @@ public class Messages {
       Map<String, Object> toMapResult = new HashMap<>();
       toMapResult.put("textureId", textureId);
       toMapResult.put("speed", speed);
+      toMapResult.put("pitch", pitch);
       return toMapResult;
     }
 
@@ -294,7 +311,9 @@ public class Messages {
               ? null
               : ((textureId instanceof Integer) ? (Integer) textureId : (Long) textureId));
       Object speed = map.get("speed");
+      Object pitch = map.get("pitch");
       pigeonResult.setSpeed((Double) speed);
+      pigeonResult.setPitch((Double) pitch);
       return pigeonResult;
     }
   }

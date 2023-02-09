@@ -267,10 +267,10 @@ final class VideoPlayer {
     exoPlayer.setVolume(bracketedValue);
   }
 
-  void setPlaybackSpeed(double value) {
+  void setPlaybackSpeed(double value, double pitch) {
     // We do not need to consider pitch and skipSilence for now as we do not handle them and
     // therefore never diverge from the default values.
-    final PlaybackParameters playbackParameters = new PlaybackParameters(((float) value));
+    final PlaybackParameters playbackParameters = new PlaybackParameters(((float) value), ((float) pitch));
 
     exoPlayer.setPlaybackParameters(playbackParameters);
   }

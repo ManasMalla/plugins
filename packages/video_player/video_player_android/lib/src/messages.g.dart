@@ -86,10 +86,12 @@ class PlaybackSpeedMessage {
   PlaybackSpeedMessage({
     required this.textureId,
     required this.speed,
+    required this.pitch,
   });
 
   int textureId;
   double speed;
+  double pitch;
 
   Object encode() {
     final Map<Object?, Object?> pigeonMap = <Object?, Object?>{};
@@ -103,6 +105,7 @@ class PlaybackSpeedMessage {
     return PlaybackSpeedMessage(
       textureId: pigeonMap['textureId']! as int,
       speed: pigeonMap['speed']! as double,
+      pitch: pigeonMap['pitch']! as double,
     );
   }
 }

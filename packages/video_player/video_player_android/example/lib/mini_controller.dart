@@ -36,6 +36,7 @@ class VideoPlayerValue {
     this.isPlaying = false,
     this.isBuffering = false,
     this.playbackSpeed = 1.0,
+    this.pitch = 1.0,
     this.errorDescription,
   });
 
@@ -69,6 +70,9 @@ class VideoPlayerValue {
 
   /// The current speed of the playback.
   final double playbackSpeed;
+
+  /// The current pitch of the playback
+  final double pitch;
 
   /// A description of the error if present.
   ///
@@ -113,6 +117,7 @@ class VideoPlayerValue {
     bool? isPlaying,
     bool? isBuffering,
     double? playbackSpeed,
+    double? pitch,
     String? errorDescription,
   }) {
     return VideoPlayerValue(
@@ -124,6 +129,7 @@ class VideoPlayerValue {
       isPlaying: isPlaying ?? this.isPlaying,
       isBuffering: isBuffering ?? this.isBuffering,
       playbackSpeed: playbackSpeed ?? this.playbackSpeed,
+      pitch: pitch ?? this.pitch,
       errorDescription: errorDescription ?? this.errorDescription,
     );
   }
@@ -312,6 +318,7 @@ class MiniController extends ValueNotifier<VideoPlayerValue> {
       await _platform.setPlaybackSpeed(
         _textureId,
         value.playbackSpeed,
+        value.pitch,
       );
     }
   }
@@ -333,8 +340,8 @@ class MiniController extends ValueNotifier<VideoPlayerValue> {
   }
 
   /// Sets the playback speed.
-  Future<void> setPlaybackSpeed(double speed) async {
-    value = value.copyWith(playbackSpeed: speed);
+  Future<void> setPlaybackSpeed(double speed, {double pitch = 1.0}) async {
+    value = value.copyWith(playbackSpeed: speed, pitch: pitch);
     await _applyPlaybackSpeed();
   }
 

@@ -134,7 +134,8 @@ void main() {
 
     testWidgets('can set playback speed', (WidgetTester tester) async {
       expect(
-        VideoPlayerPlatform.instance.setPlaybackSpeed(await textureId, 2.0),
+        VideoPlayerPlatform.instance
+            .setPlaybackSpeed(await textureId, 2.0, 1.0),
         completes,
       );
     });

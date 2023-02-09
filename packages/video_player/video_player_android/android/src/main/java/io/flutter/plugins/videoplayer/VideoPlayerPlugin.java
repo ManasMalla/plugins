@@ -177,7 +177,7 @@ public class VideoPlayerPlugin implements FlutterPlugin, AndroidVideoPlayerApi {
 
   public void setPlaybackSpeed(PlaybackSpeedMessage arg) {
     VideoPlayer player = videoPlayers.get(arg.getTextureId());
-    player.setPlaybackSpeed(arg.getSpeed());
+    player.setPlaybackSpeed(arg.getSpeed(), arg.getPitch());
   }
 
   public void play(TextureMessage arg) {

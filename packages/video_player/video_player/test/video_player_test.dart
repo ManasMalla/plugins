@@ -50,7 +50,7 @@ class FakeController extends ValueNotifier<VideoPlayerValue>
   Future<void> setVolume(double volume) async {}
 
   @override
-  Future<void> setPlaybackSpeed(double speed) async {}
+  Future<void> setPlaybackSpeed(double speed, {double pitch = 1.0}) async {}
 
   @override
   Future<void> initialize() async {}
@@ -1145,7 +1145,8 @@ class FakeVideoPlayerPlatform extends VideoPlayerPlatform {
   }
 
   @override
-  Future<void> setPlaybackSpeed(int textureId, double speed) async {
+  Future<void> setPlaybackSpeed(
+      int textureId, double speed, double pitch) async {
     calls.add('setPlaybackSpeed');
   }
 
